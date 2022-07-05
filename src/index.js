@@ -211,7 +211,14 @@ module.exports = {
         const profile        = new FirefoxProfile();
 
         profile.defaultPreferences = {};
+        if (process.env['BROWSERSTACK_FIREFOX_PREFERENCES'] && process.env['BROWSERSTACK_FIREFOX_PREFERENCES'].length > 0)
+            capabilities.firefoxPreferences = JSON.parse(process.env['BROWSERSTACK_FIREFOX_PREFERENCES']);
 
+        if (capabilities['firefoxPreferences']) {
+            capabilities['firefoxPreferences'].forEach((pr) => {
+                profile.setPreference(pr['key'], pr['value']);
+            })
+        }
         profile.setPreference('browser.helperApps.neverAsk.saveToDisk', getMimeTypes());
         profile.updatePreferences();
 
