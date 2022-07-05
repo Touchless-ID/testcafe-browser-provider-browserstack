@@ -217,7 +217,7 @@ module.exports = {
         if (capabilities['firefoxPreferences']) {
             capabilities['firefoxPreferences'].forEach((pr) => {
                 profile.setPreference(pr['key'], pr['value']);
-            })
+            });
         }
         profile.setPreference('browser.helperApps.neverAsk.saveToDisk', getMimeTypes());
         profile.updatePreferences();
